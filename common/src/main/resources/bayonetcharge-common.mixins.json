@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.betafoprhoton.bayonetcharge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "MixinTitleScreen"
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
