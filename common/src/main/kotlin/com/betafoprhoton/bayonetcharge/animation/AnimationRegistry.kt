@@ -8,12 +8,12 @@ import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.resources.ResourceLocation
 
 
-object AnimatiionRegistry {
+object AnimationRegistry {
     fun register() {
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
             ResourceLocation(MODID, "back"),
             42,
-            AnimatiionRegistry::registerPlayerAnimation
+            AnimationRegistry::registerPlayerAnimation
         )
     }
 

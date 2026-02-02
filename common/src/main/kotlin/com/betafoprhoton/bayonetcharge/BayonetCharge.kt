@@ -1,7 +1,9 @@
 package com.betafoprhoton.bayonetcharge
 
 import com.betafoprhoton.bayonetcharge.BayonetChargeExpectPlatform.getConfigDirectory
-import com.betafoprhoton.bayonetcharge.animation.AnimatiionRegistry
+import com.betafoprhoton.bayonetcharge.animation.AnimationRegistry
+import com.betafoprhoton.bayonetcharge.client.KeyMappings
+import dev.architectury.event.events.client.ClientLifecycleEvent
 import dev.architectury.registry.CreativeTabRegistry
 import dev.architectury.registry.registries.DeferredRegister
 import dev.architectury.registry.registries.RegistrySupplier
@@ -33,7 +35,13 @@ object BayonetCharge {
     fun init() {
         createModeTabs.register()
         items.register()
-        AnimatiionRegistry.register()
+        ClientLifecycleEvent.CLIENT_SETUP.register {
+            KeyMappings.register()
+            AnimationRegistry.register()
+        }
+        ClientLifecycleEvent.CLIENT_LEVEL_LOAD.register {
+
+        }
         println("CONFIG DIR: ${getConfigDirectory().toAbsolutePath().normalize()}")
     }
 }

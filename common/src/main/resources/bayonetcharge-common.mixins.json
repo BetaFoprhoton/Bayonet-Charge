@@ -3,7 +3,7 @@
   "package": "com.betafoprhoton.bayonetcharge.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MixinPlayer"
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

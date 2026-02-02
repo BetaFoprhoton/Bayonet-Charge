@@ -1,8 +1,18 @@
 package com.betafoprhoton.bayonetcharge.client
 
+import com.betafoprhoton.bayonetcharge.BayonetCharge.MODID
+import com.betafoprhoton.bayonetcharge.server.PlayerStateManager
+import com.betafoprhoton.bayonetcharge.server.PlayerStateManager.Companion.PlayerState.*
 import com.mojang.blaze3d.platform.InputConstants
+import dev.architectury.event.events.client.ClientTickEvent
+import dev.architectury.networking.NetworkManager
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry
+import io.netty.buffer.Unpooled
 import net.minecraft.client.KeyMapping
+import net.minecraft.client.Minecraft
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
+
 
 class KeyMappings {
     companion object {
@@ -15,6 +25,26 @@ class KeyMappings {
 
         fun register() {
             KeyMappingRegistry.register(BAYONET_CHARGE)
+            ClientTickEvent.CLIENT_POST.register(ClientTickEvent.Client { minecraft: Minecraft? ->
+                while (BAYONET_CHARGE.consumeClick()) {
+                    if (minecraft == null || minecraft.player == null) break
+                    val buf = FriendlyByteBuf(Unpooled.buffer())
+                    buf.writeInt(1)
+                    NetworkManager.sendToServer(ResourceLocation(MODID), buf)
+                }
+            })
+
+            NetworkManager.registerReceiver(NetworkManager.Side.C2S, ResourceLocation(MODID)) {
+                buf: FriendlyByteBuf?, context: NetworkManager.PacketContext? ->
+                if (buf == null || context == null) return@registerReceiver
+                val message = buf.readInt()
+                when (message) {
+                    1 -> {
+                        if (!context.player.tags.contains(CHARGING.stringName))
+                            context.player.addTag(CHARGING.stringName)
+                    }
+                }
+            }
         }
     }
 }

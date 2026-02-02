@@ -1,5 +1,6 @@
 package com.betafoprhoton.bayonetcharge.server
 
+import com.betafoprhoton.bayonetcharge.BayonetCharge.MODID
 import com.betafoprhoton.bayonetcharge.server.PlayerStateManager.Companion.PlayerState.*
 import kotlin.compareTo
 
@@ -33,14 +34,11 @@ class PlayerStateManager(val chargingMax: Int, val executingMax: Int, val cooldo
     }
 
     companion object {
-        enum class PlayerState() {
-            CHARGING,
-            EXECYTING,
-            COOLDOWN,
-            NONE
+        enum class PlayerState(val stringName: String) {
+            CHARGING("$MODID\$CHARGING"),
+            EXECYTING("$MODID\$EXECYTING"),
+            COOLDOWN("$MODID\$COOLDOWN"),
+            NONE("$MODID\$NONE")
         }
     }
-
-
-
 }
