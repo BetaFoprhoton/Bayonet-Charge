@@ -1,11 +1,11 @@
 package com.betafoprhoton.bayonetcharge.quilt
 
-import net.examplemod.fabriclike.ExampleModFabricLike
+import com.betafoprhoton.bayonetcharge.fabriclike.BayonetChargeFabricLike
 import org.quiltmc.loader.api.ModContainer
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer
 
-object ExampleModQuilt: ModInitializer {
+object BayonetChargeQuilt: ModInitializer {
     override fun onInitialize(mod: ModContainer?) {
-        ExampleModFabricLike.init()
+        BayonetChargeFabricLike.init()
     }
 }

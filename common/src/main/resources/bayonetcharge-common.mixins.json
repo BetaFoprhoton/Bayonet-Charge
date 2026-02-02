@@ -2,10 +2,8 @@
   "required": true,
   "package": "com.betafoprhoton.bayonetcharge.mixin",
   "compatibilityLevel": "JAVA_17",
-  "client": [
-    "MixinTitleScreen"
-  ],
   "mixins": [
+    "MixinPlayer"
   ],
   "injectors": {
     "defaultRequire": 1
