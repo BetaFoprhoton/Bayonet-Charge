@@ -40,10 +40,10 @@ object BayonetCharge {
         BayonetChargeContextManager.register()
         ClientLifecycleEvent.CLIENT_SETUP.register {
             KeyMappings.register()
-            //AnimationRegistry.register()
+            ClientAnimationManager.register()
         }
         ClientLifecycleEvent.CLIENT_LEVEL_LOAD.register {
-            //ClientAnimationManager.register()
+            AnimationRegistry.register()
         }
         println("CONFIG DIR: ${getConfigDirectory().toAbsolutePath().normalize()}")
     }

@@ -1,11 +1,18 @@
 package com.betafoprhoton.bayonetcharge.server
 
+import com.betafoprhoton.bayonetcharge.BayonetCharge.MODID
+import com.betafoprhoton.bayonetcharge.client.ClientAnimationManager.ANIMATION_MESSAGE_ID
 import com.betafoprhoton.bayonetcharge.server.PlayerStateManager.Companion.PlayerState.*
+import dev.architectury.networking.NetworkManager
+import io.netty.buffer.Unpooled
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
+
 
 class BayonetChargeContext(val player: ServerPlayer) {
     val playerStateManager = PlayerStateManager(
@@ -55,7 +62,11 @@ class BayonetChargeContext(val player: ServerPlayer) {
     fun entityCollided(entity: LivingEntity) {
         playerStateManager.playerState = EXECYTING
         println("Player ${player.name} collided $entity.name")
-        //TODO: conneted with ClientAnimationManager
+        val buf = FriendlyByteBuf(Unpooled.buffer())
+        buf.writeInt(1)
+        buf.writeUUID(entity.uuid)
+        NetworkManager.sendToPlayer(player, ANIMATION_MESSAGE_ID, buf)
+        //TODO: conneted to ClientAnimationManager
     }
 
     fun stopCharging() {

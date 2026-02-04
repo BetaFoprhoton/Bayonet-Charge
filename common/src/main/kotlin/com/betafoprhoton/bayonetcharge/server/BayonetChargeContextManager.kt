@@ -2,7 +2,6 @@ package com.betafoprhoton.bayonetcharge.server
 
 import dev.architectury.event.events.common.PlayerEvent
 import dev.architectury.event.events.common.TickEvent
-import net.minecraft.server.level.ServerPlayer
 
 class BayonetChargeContextManager {
     private val contexts: HashSet<BayonetChargeContext> = hashSetOf()
